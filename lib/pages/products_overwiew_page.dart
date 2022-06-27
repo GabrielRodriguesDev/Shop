@@ -15,6 +15,7 @@ class ProductsOverviewPage extends StatelessWidget {
       ),
       body: Padding(
         //* Envolvendo o GridView com um padding, para que não fique batendo nas laterais da tela.
+
         padding: const EdgeInsets.all(10),
         child: GridView.builder(
           itemCount: loadedProducts.length,
