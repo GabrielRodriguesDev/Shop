@@ -8,13 +8,17 @@ import '../models/product.dart';
 import '../models/product_list.dart';
 
 class ProductGrid extends StatelessWidget {
+  const ProductGrid({required this.showFavorityOnly});
+
+  final bool showFavorityOnly;
   @override
   Widget build(BuildContext context) {
     //! Carregando o Provider.
     final provider = Provider.of<ProductList>(context);
 
     //! Pegando a lista de items que obtemos do provider.
-    final List<Product> loadedProducts = provider.items;
+    final List<Product> loadedProducts =
+        showFavorityOnly ? provider.itemsFavorite : provider.items;
 
     //! Retornando o Widget
     return GridView.builder(

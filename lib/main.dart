@@ -5,6 +5,8 @@ import 'package:shop/pages/product_detail_page.dart';
 import 'package:shop/pages/products_overwiew_page.dart';
 import 'package:shop/utils/app_routes.dart';
 
+import 'models/cart.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,15 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      //!Escuta um ChangeNotifier , o expõe a seus descendentes (child) e reconstrói dependentes sempre que o ->
-      //!ChangeNotifier.notifyListeners é chamado.
-
-      create: (_) => ProductList(),
-
-      //!O ChangeNotifierProvierrecebe dois argumentos: create e child. O create é basicamente o que vai mudar e, no nosso caso,
-      //!o que muda é uma instância de ProductList. E o child é quem precisa ser avisado quando isso mudar, que no nosso caso é nossa aplicação inteira.
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductList()),
+        ChangeNotifierProvider(create: (_) => Cart()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

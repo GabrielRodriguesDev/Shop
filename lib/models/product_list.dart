@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, unused_field
 
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dummy_data.dart';
@@ -12,13 +12,32 @@ class ProductList with ChangeNotifier {
 
   List<Product> _items = dummyProducts;
 
-  List<Product> get items => [
-        ..._items
-      ]; //! Implementando get que retorna uma cópia da lista e não a referencia.
-  //! Se retornarmos a referencia, a lista poderá ser manipulada e esse não é o objetivo.
+  List<Product> get items => _items.toList();
+
+  List<Product> get itemsFavorite =>
+      _items.where((product) => product.isFavorite).toList();
 
   void addProduct(Product product) {
     _items.add(product);
     notifyListeners(); //! Notificando os listeners
   }
+
+  // ! Controlando o Favorite globalmente
+  // List<Product> get items {
+  //   if (_showFavorityOnly) {
+  //     return _items.where((product) => product.isFavorite).toList();
+  //   }
+  //   return items.toList();
+  // } //! Implementando get que retorna uma cópia da lista e não a referencia.
+  // //! Se retornarmos a referencia, a lista poderá ser manipulada e esse não é o objetivo.
+
+  // void showFavorityOnly() {
+  //   _showFavorityOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavorityOnly = false;
+  //   notifyListeners();
+  // }
 }

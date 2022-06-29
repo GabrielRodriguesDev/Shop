@@ -11,7 +11,9 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    final product = Provider.of<Product>(context, listen: true
+        //* listen: false define que esse provider ao ser notificado não irá realizar o build novamene quando notar algumas mudanças
+        );
     return ClipRRect(
       //* ClipRRect => Widget que recorta seu filho usando um retângulo arredondado.
 
@@ -46,7 +48,7 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
-          title: Text(product.title, textAlign: TextAlign.center),
+          title: Text(product.name, textAlign: TextAlign.center),
           trailing: IconButton(
             //* GridTileBar => trailing => Um widget para ser exibido após o título.
 
