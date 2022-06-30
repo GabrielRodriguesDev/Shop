@@ -1,8 +1,11 @@
 // ignore_for_file: sort_child_properties_last, todo
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/utils/app_routes.dart';
+
+import '../models/cart.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -11,9 +14,9 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: true
-        //* listen: false define que esse provider ao ser notificado não irá realizar o build novamene quando notar algumas mudanças
-        );
+    final product = Provider.of<Product>(context, listen: true);
+    final cart = Provider.of<Cart>(context, listen: false);
+
     return ClipRRect(
       //* ClipRRect => Widget que recorta seu filho usando um retângulo arredondado.
 
@@ -52,7 +55,12 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             //* GridTileBar => trailing => Um widget para ser exibido após o título.
 
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(product);
+              if (kDebugMode) {
+                print(cart.itemsCount);
+              }
+            },
             icon: Icon(
               Icons.shopping_cart,
               color: Theme.of(context).colorScheme.secondary,

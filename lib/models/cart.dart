@@ -35,7 +35,7 @@ class Cart with ChangeNotifier {
         ),
       );
     }
-    notifyListeners;
+    notifyListeners();
   }
 
   void removeItem(String productId) {

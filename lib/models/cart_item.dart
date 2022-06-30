@@ -11,4 +11,9 @@ class CartItem {
       required this.name,
       required this.quantity,
       required this.price});
+
+  String totalValueText() {
+    var result = price * quantity;
+    return result.toStringAsFixed(2);
+  }
 }
